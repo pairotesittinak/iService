@@ -11,19 +11,6 @@ var config = require('config.json');
 var mongoose = require('mongoose'),
     _ = require('lodash');
  mongoose.connect('mongodb://localhost/my_db'); 
-///////////////////////////////////////////
-// var mongoShema = require(../app/pr/pr.model);
-////////////////////////////////////////////
-// var Schema = mongoose.Schema;
-// var usersSchema = mongoose.Schema({
-//     firstName: String,
-//     lastName: String,
-//     username: String,
-// }, 
-// {collection: 'users'}
-// );
-// var Users = mongoose.model('Users', usersSchema);
-
 
 
 app.use(express.static(__dirname + "/home"));
@@ -65,8 +52,9 @@ app.use('/api/users', require('./controllers/api/users.controller'));
 
 
 
-require('./app/home/home.route')(app);
 require('./app/pr/pr.route')(app);
+// require('./app/home/home.route')(app);
+
 // make '/app' default route
 app.get('/', function (req, res) {
     return res.redirect('/app');

@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
 var Schema = mongoose.Schema;
 // var mongoose = require('mongoose'),
 var newsSchema = mongoose.Schema({
+    topic: Boolean,
     title: String,
     group_id: Number,
     date: { 
@@ -16,6 +17,9 @@ var newsSchema = mongoose.Schema({
       default: Date.now() 
     },
     author: String,
+    userType: String,
+    faculty: String,
+    year: String,
     image: {type: Schema.Types.Object, ref: 'File' },
     description: String
 }, 
@@ -23,16 +27,21 @@ var newsSchema = mongoose.Schema({
 );
 var newss = mongoose.model('newss', newsSchema);
 
+
+
+
+
+
+
+
+
+
 var File = mongoose.model("File", new Schema({}, {strict: false}), "fs.files" );
  
 var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
 //Add Model
-
-
-
-
 
 
 
@@ -53,12 +62,16 @@ var item = {
 ///////////////////SAVE///////////////////////////////
 data.save(function (err) {
   if (err) return handleError(err);
-  
+  var YearStudent;
   var News1 = new newss({
         title: req.body.title,
         group_id: req.body.group_id,
         author: req.body.author,
         description: req.body.description,
+        userType: req.body.userType,
+        faculty: req.body.faculty,
+        year: req.body.year,
+        topic: req.body : {"checked":"true"},
       // var  date = new Date();
         // date: dateTime,
         image: data.urlImage

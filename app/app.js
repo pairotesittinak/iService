@@ -14,29 +14,29 @@
         $stateProvider
             
             .state('news', {
-                url: '/',
-                templateUrl: 'news/index.html',
+                url: '/news',
+                templateUrl: 'news.ejs',
                 controller: 'news.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'news' }
             })
             .state('pr', {
-                url: '/',
-                templateUrl: 'pr/index.html',
+                url: '/pr',
+                templateUrl: 'pr.ejs',
                 controller: 'pr.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'pr' }
             })
             .state('home', {
                 url: '/home',
-                templateUrl: '../views/home.ejs',
-                controller: 'Controller',
+                templateUrl: 'home.ejs',
+                controller: 'Home.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'home' }
             })
             .state('account', {
                 url: '/account',
-                templateUrl: 'account/index.html',
+                templateUrl: 'account.ejs',
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }
