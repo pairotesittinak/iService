@@ -1,6 +1,13 @@
 li .item-toggle {
   margin: 0px; }
 
+.topic {
+  /*margin: 20px;*/
+  /*padding: 20px;*/
+  padding-bottom: 40px;
+  
+}
+
 .cover-image {
   background-repeat: no-repeat;
   width: 100%;
