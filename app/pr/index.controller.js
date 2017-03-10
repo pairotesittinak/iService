@@ -5,20 +5,20 @@ var Schema = mongoose.Schema;
 var newsSchema = mongoose.Schema({
     topic: {type: Boolean, default: false },
     title: String,
-    group_id: Number,
+    group_id: {type: String, default: 'all' },
     date: { 
       type: Date, 
       default: Date.now() 
     },
     author: String,
-    userType: String,
-    faculty: String,
-    year: String,
+    userType: {type: String, default: 'all' },
+    faculty: {type: String, default: 'all' },
+    year: {type: String, default: 'all' },
     image: {type: Schema.Types.Object, ref: 'File' },
     description: String
-}, 
-{collection: 'News'}
-);
+    }, 
+    {collection: 'News'}
+    );
 var newss = mongoose.model('newss', newsSchema);
 var File = mongoose.model("File", new Schema({}, {strict: false}), "fs.files" );
 var Grid = require('gridfs-stream');
