@@ -1,15 +1,9 @@
-// var News = require('mongoose').model('newss');
-// var Filess = require('mongoose').model('File');
-// var User = require('mongoose').model('Users');
-
 var fs = require('fs');
 var mongoose = require('mongoose'),
     _ = require('lodash');
- // mongoose.connect('mongodb://localhost/my_db');   
 var Schema = mongoose.Schema;
-// var mongoose = require('mongoose'),
 var newsSchema = mongoose.Schema({
-    topic: Boolean,
+    topic: {type: Boolean, default: false },
     title: String,
     group_id: Number,
     date: { 
@@ -26,31 +20,11 @@ var newsSchema = mongoose.Schema({
 {collection: 'News'}
 );
 var newss = mongoose.model('newss', newsSchema);
-
-
-
-
-
-
-
-
-
-
 var File = mongoose.model("File", new Schema({}, {strict: false}), "fs.files" );
- 
 var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
-//Add Model
 
-
-
-
-
-
-
-
- 
 exports.create = function(req, res) {
 var part = req.files.filefield;
 
@@ -58,7 +32,6 @@ var item = {
   urlImage: "http://"+"localhost:3000/upload/" + part.name
 };
       var data = new File(item);
-      // data.save();
 ///////////////////SAVE///////////////////////////////
 data.save(function (err) {
   if (err) return handleError(err);
@@ -71,27 +44,20 @@ data.save(function (err) {
         userType: req.body.userType,
         faculty: req.body.faculty,
         year: req.body.year,
-        topic: req.body : {"checked":"true"},
-      // var  date = new Date();
-        // date: dateTime,
+        topic: req.body.topic,
         image: data.urlImage
 
   });
   
   News1.save(function (err) {
     if (err) return handleError(err);
-    // thats it!
   });
 });
-//////////////////////////////////////////////////////
-        
- 
                 var writeStream = gfs.createWriteStream({
                     filename: part.name,
                     mode: 'w',
                     content_type:part.mimetype,
                     metadata: {
-                    // URL: "http//localhost:3000/" + filename,
                     name: data.title
                       }
                 });
@@ -142,37 +108,16 @@ exports.read = function(req, res) {
  
 };
 
-
-
-
-//     exports.show = function(req, res, next) {
-//     	News.find({}, function(err, response) {
-//     		if (err) {
-//     			return next(err);
-//     		} else {
-//     			res.render('test', {items: response});
-//     		}
-//     	});
-// };
-//     exports.delete = function(req, res, next) {
-//       var id = req.body.id;
-//         News.findByIdAndRemove(id).exec();
-
-//         res.redirect('/');
-// };
-    
     exports.showJson = function (req, res) {
-//////////////////TEST USER//////////////////
-newss
-.find()
-.populate('File')
-.sort({date: -1})
-.exec(function (err, users) {
-  if (err) return handleError(err);
-  console.log('The creator is %s', users);
-  // prints "The creator is Aaron"
-  res.json(users);
-});
+    newss
+    .find()
+    .populate('File')
+    .sort({date: -1})
+    .exec(function (err, users) {
+      if (err) return handleError(err);
+      console.log('The creator is %s', users);
+      res.json(users);
+    });
 
     };
 
