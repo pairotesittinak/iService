@@ -148,3 +148,16 @@ exports.read = function(req, res) {
 
     res.send(item);
 };
+
+ exports.getUser = function (req, res) {
+    ionicUsers
+    .find()
+    // .populate('File')
+    // .sort({date: -1})
+    .exec(function (err, users) {
+      if (err) return handleError(err);
+      console.log('The creator is %s', users);
+      res.json(users);
+    });
+
+    };
