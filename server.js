@@ -53,6 +53,7 @@ app.use('/api/users', require('./controllers/api/users.controller'));
 
 
 require('./app/pr/pr.route')(app);
+require('./app/postUsers/postUsers.route')(app);
 // require('./app/home/home.route')(app);
 
 // make '/app' default route

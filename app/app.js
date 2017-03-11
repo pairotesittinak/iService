@@ -34,6 +34,13 @@
                 controllerAs: 'vm',
                 data: { activeTab: 'home' }
             })
+            // .state('postUsers', {
+            //     url: '/postUsers',
+            //     templateUrl: 'postUsers.ejs',
+            //     controller: 'postUsers.IndexController',
+            //     controllerAs: 'vm',
+            //     data: { activeTab: 'postUsers' }
+            // })
             .state('account', {
                 url: '/account',
                 templateUrl: 'account.ejs',
