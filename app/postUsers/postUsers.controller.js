@@ -139,7 +139,7 @@ exports.read = function(req, res) {
       data.save(function (err) {
   if (err) return handleError(err);
 });
-
+next();
 
 
 
@@ -151,13 +151,17 @@ exports.read = function(req, res) {
 
  exports.getUser = function (req, res) {
     ionicUsers
-    .find()
+    // .find()
+    .findOne({
+            username: req.param('username')
+        })
     // .populate('File')
     // .sort({date: -1})
     .exec(function (err, users) {
       if (err) return handleError(err);
       console.log('The creator is %s', users);
       res.json(users);
+      
     });
 
     };
