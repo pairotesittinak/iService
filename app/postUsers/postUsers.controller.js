@@ -139,7 +139,7 @@ exports.read = function(req, res) {
       data.save(function (err) {
   if (err) return handleError(err);
 });
-next();
+
 
 
 
