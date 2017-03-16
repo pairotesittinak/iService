@@ -37,7 +37,7 @@ app.use(busboyBodyParser());
 
 // app.set('view engine', 'ejs');
 // app.set('views', __dirname + '/views');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
 
@@ -61,15 +61,7 @@ app.get('/', function (req, res) {
     return res.redirect('/app');
 });
 
-// app.get('/home', function(req, res) {
-// 	return     	Users.find({}, function(err, response) {
-//     		if (err) {
-//     			return next(err);
-//     		} else {
-//     			res.render('home', {items: response});
-//     		}
-//     	});
-// });
+
 // start server
 var server = app.listen(3000, function () {
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);

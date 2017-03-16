@@ -9,41 +9,34 @@
 
     function config($stateProvider, $urlRouterProvider) {
         // default route
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise("news");
 
         $stateProvider
             
             .state('news', {
                 url: '/news',
-                templateUrl: 'news.ejs',
+                templateUrl: 'news/index.html',
                 controller: 'news.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'news' }
             })
             .state('pr', {
                 url: '/pr',
-                templateUrl: 'pr.ejs',
+                templateUrl: 'pr/index.html',
                 controller: 'pr.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'pr' }
             })
             .state('home', {
                 url: '/home',
-                templateUrl: 'home.ejs',
+                templateUrl: 'home/index.html',
                 controller: 'Home.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'home' }
             })
-            // .state('postUsers', {
-            //     url: '/postUsers',
-            //     templateUrl: 'postUsers.ejs',
-            //     controller: 'postUsers.IndexController',
-            //     controllerAs: 'vm',
-            //     data: { activeTab: 'postUsers' }
-            // })
             .state('account', {
                 url: '/account',
-                templateUrl: 'account.ejs',
+                templateUrl: 'account/index.html',
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }

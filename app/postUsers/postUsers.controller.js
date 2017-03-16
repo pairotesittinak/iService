@@ -2,6 +2,8 @@ var fs = require('fs');
 var mongoose = require('mongoose'),
     _ = require('lodash');
 var Schema = mongoose.Schema;
+
+/////////////// Model ///////////////////
 var ionicUsersSchema = mongoose.Schema({
     username: String,
     password: String,
@@ -23,6 +25,9 @@ var ionicUsersSchema = mongoose.Schema({
     {collection: 'ionicUsers'}
     );
 var ionicUsers = mongoose.model('ionicUsers', ionicUsersSchema);
+
+
+
 var File = mongoose.model("FileIonic", new Schema({}, {strict: false}), "fs.files" );
 var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
@@ -99,37 +104,7 @@ exports.read = function(req, res) {
 
 
     exports.createUsers = 	function(req, res) {
-    // var user_id = req.body.id;
-    // var token = req.body.token;
-    // var geo = req.body.geo;
-
-     //  var username = req.body.username;
-     //  var password = req.body.password;
-     //  var firstname = req.body.firstname;
-     // var lastname = req.body.lastname;
-     //  var faculty = req.body.faculty;
-     //  var year = req.body.year;
-     //  var userType = req.body.userType;
-
-
-// var datatest = new ionicUsers(username,password,firstname,lastname,faculty,year,userType);
-// datatest.save(function (err) {
-//   if (err) return handleError(err);
-// //   var News1 = new ionicUsers({
-// //       username,password,firstname,lastname,faculty,year,userType
-
-// // });
-// });
-
-
-// var  dateTime = new Date();
       var item = {
-      //   title: req.body.title,
-      //   group_id: req.body.group_id,
-      //   author: req.body.author,
-      //   description: req.body.description,
-      // // var  date = new Date();
-      //   date: dateTime
      username: req.body.username,
       password: req.body.password,
       firstname: req.body.firstname,
@@ -143,13 +118,6 @@ exports.read = function(req, res) {
       data.save(function (err) {
   if (err) return handleError(err);
 });
-
-
-
-
-
-      // console.log(username + faculty);
-
     res.send(item);
 };
 
@@ -169,3 +137,51 @@ exports.read = function(req, res) {
     });
 
     };
+
+
+    exports.getUserAll = function (req, res) {
+    ionicUsers
+    .find()
+    // .populate('File')
+    // .sort({date: -1})
+    .exec(function (err, users) {
+      if (err) return handleError(err);
+      console.log('The creator is %s', users);
+      res.json(users);
+    });
+
+
+    };
+
+    exports.updateUsers = function(req, res){
+  // var use    username: req.body.username;
+      // password: req.body.password,
+  // var first =  { firstname: req.body.firstname};
+  // var aa = {username: req.params.username};
+  var bb = {firstname: req.body.firstname};
+  var rr = req.body.firstname;
+        // lastname: req.body.lastname,
+      // faculty: req.body.faculty,
+      // year: req.body.year,
+      // userType: req.body.userType
+// var query = {'username':req.user.username};
+// console.log(req.params.username);
+ionicUsers.update(req.param('username'), { $set: { firstname: rr }}, function (err, user) {
+  if (err) return handleError(err);
+  console.log(user);
+  console.log('OK');
+});
+
+
+
+
+    //   ionicUsers
+    // .findOne({
+    //         username: req.param('username')
+    //     })
+    // .exec(function (err, users) {
+    //   if (err) return handleError(err);
+    //   console.log('The creator is %s', users);
+    //   res.json(users);
+    // });
+    }

@@ -1,38 +1,3 @@
-// var mongoose = require('mongoose');
-// var usersSchema = mongoose.Schema({
-//     firstName: String,
-//     lastName: String,
-//     username: String,
-//     Status: String,
-//     typeUser: String,
-//     faculty: String,
-//     year: String
-// }, 
-// {collection: 'users'}
-// );
-// var Users = mongoose.model('Users', usersSchema);
-
-
-// exports.getUser = function(req, res, next) {
-
-// // console.log("1234");
-
-
-// Users
-// .find()
-// .populate('File')
-// .sort({date: -1})
-// .exec(function (err, users) {
-//   if (err) return handleError(err);
-//   console.log('The creator is %s', users);
-//   // prints "The creator is Aaron"
-//   res.json({item: users});
-// });
-
-// };
-
-
-
 (function () {
     'use strict';
 
@@ -40,7 +5,9 @@
         .module('app')
         .controller('Home.IndexController', Controller);
 
-    function Controller($window, UserService, FlashService) {
+
+    function Controller($window, UserService, FlashService, $scope, $http) {
+
         var vm = this;
 
         vm.user = null;
@@ -49,10 +16,39 @@
 
         initController();
 
+
+        // $http.get('/all/users')
+        // .success(function(data) {
+        //     $scope.ShowUsersIonic = data;
+        //     console.log($scope.ShowUsersIonic[0]);
+        // })
+        // .error(function(data) {
+        //     console.log('Error: ' + data);
+        // });
+
+
+
+
+
+
+
+
+
+var urlShowJson = "http://localhost:3000/all/users";
+$http.get(urlShowJson).success( function(data) {
+   $scope.ShowUsersIonic =  data;
+   // console.log("Review get  Opject: ", response, status);
+  console.log($scope.ShowUsersIonic);
+});
+
+
+
         function initController() {
             // get current user
             UserService.GetCurrent().then(function (user) {
                 vm.user = user;
+                // $scope.User = vm.user;
+                // console.log($scope.User);
             });
         }
 
