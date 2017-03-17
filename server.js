@@ -4,6 +4,7 @@ var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var busboyBodyParser = require('busboy-body-parser');
+var schedule = require('node-schedule');
 // var hbs = require('express-handlebars');
 // var busboyBodyParser = require('busboy-body-parser');
 var expressJwt = require('express-jwt');
@@ -37,7 +38,7 @@ app.use(busboyBodyParser());
 
 // app.set('view engine', 'ejs');
 // app.set('views', __dirname + '/views');
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
 

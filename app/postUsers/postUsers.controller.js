@@ -154,34 +154,15 @@ exports.read = function(req, res) {
     };
 
     exports.updateUsers = function(req, res){
-  // var use    username: req.body.username;
-      // password: req.body.password,
-  // var first =  { firstname: req.body.firstname};
-  // var aa = {username: req.params.username};
-  var bb = {firstname: req.body.firstname};
-  var rr = req.body.firstname;
-        // lastname: req.body.lastname,
-      // faculty: req.body.faculty,
-      // year: req.body.year,
-      // userType: req.body.userType
-// var query = {'username':req.user.username};
-// console.log(req.params.username);
-ionicUsers.update(req.param('username'), { $set: { firstname: rr }}, function (err, user) {
+  var first = req.body.firstname;
+  var  last  = req.body.lastname;
+  var  fac = req.body.faculty;
+  var  yy =  req.body.year;
+  var userT  =  req.body.userType;
+ionicUsers.update(req.param('username'), { $set: { firstname: first, lastname : last, faculty : fac,
+userType : userT , year : yy }}, function (err, user) {
   if (err) return handleError(err);
   console.log(user);
   console.log('OK');
 });
-
-
-
-
-    //   ionicUsers
-    // .findOne({
-    //         username: req.param('username')
-    //     })
-    // .exec(function (err, users) {
-    //   if (err) return handleError(err);
-    //   console.log('The creator is %s', users);
-    //   res.json(users);
-    // });
     }
