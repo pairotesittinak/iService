@@ -50,7 +50,9 @@ $http.post(urlNewsCnn,{
 
 }).success( function(response) {
   console.log('OK');
-  $state.go('home');
+  console.log($scope.username);
+
+  // $state.go('home');
 });
 
 }
@@ -60,12 +62,13 @@ $http.post(urlNewsCnn,{
 
 
 $scope.ButtonUpdateUser = function(test){
-$scope.IndexData = {};
+// $scope.IndexData = {};
 $scope.IndexData = $scope.ShowUsersIonic.indexOf(test);
 console.log("Index "+ $scope.IndexData);
 console.log(test.username);
  console.log(test);
 $scope.buttonUpdateUser = [];
+$scope.buttonUpdateUser.username = test.username;
 $scope.buttonUpdateUser.firstname = test.firstname;
 $scope.buttonUpdateUser.lastname = test.lastname;
 console.log($scope.buttonUpdateUser.firstname);
@@ -84,7 +87,7 @@ $("#div-editbox").hide("show");
 
 $scope.saveData = function(){
 
-var urlUpdate = "http://localhost:3000/g/update/" + $scope.buttonUpdateUser.firstname;
+var urlUpdate = "http://localhost:3000/g/update/" + $scope.buttonUpdateUser.username;
 $http.post(urlUpdate,{
    
     'firstname':$scope.buttonUpdateUser.firstname, 'lastname':$scope.buttonUpdateUser.lastname,
@@ -115,7 +118,7 @@ var urlShowJson = "http://localhost:3000/all/users";
 $http.get(urlShowJson).success( function(data) {
    $scope.ShowUsersIonic =  data;
    // console.log("Review get  Opject: ", response, status);
-  console.log($scope.ShowUsersIonic);
+  // console.log($scope.ShowUsersIonic);
 });
 
 

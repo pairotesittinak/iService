@@ -159,7 +159,7 @@ exports.read = function(req, res) {
   var  fac = req.body.faculty;
   var  yy =  req.body.year;
   var userT  =  req.body.userType;
-ionicUsers.update(req.param('username'), { $set: { firstname: first, lastname : last, faculty : fac,
+ionicUsers.update({username:req.param('username')}, { $set: { firstname: first, lastname : last, faculty : fac,
 userType : userT , year : yy }}, function (err, user) {
   if (err) return handleError(err);
   console.log(user);
