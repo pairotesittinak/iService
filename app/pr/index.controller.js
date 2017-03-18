@@ -1,4 +1,4 @@
-var schedule = require('node-schedule');
+// var schedule = require('node-schedule');
 var fs = require('fs');
 var mongoose = require('mongoose'),
     _ = require('lodash');
@@ -29,14 +29,6 @@ var gfs = new Grid(mongoose.connection.db);
 exports.create = function(req, res) {
 var part = req.files.filefield;
 
-// var j = function(){ schedule.scheduleJob('42 * * * *', function(){
-//   console.log('The answer to life, the universe, and everything!');
-// });
-// }();
-
-
-
-
 var item = {
   urlImage: "http://"+"localhost:3000/upload/" + part.name
 };
@@ -62,6 +54,8 @@ data.save(function (err) {
     if (err) return handleError(err);
   });
 });
+
+///////////////////////////Send File //////////////////////////
                 var writeStream = gfs.createWriteStream({
                     filename: part.name,
                     mode: 'w',
@@ -71,13 +65,8 @@ data.save(function (err) {
                       }
                 });
  
- 
                 writeStream.on('close', function() {
                      return res.redirect('/app/#/');
-                     // res.status(200).send({
-            // message: 'Success'
-
-          // });
                 });
                 
                 writeStream.write(part.data);

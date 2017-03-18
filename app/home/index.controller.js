@@ -50,9 +50,10 @@ $http.post(urlNewsCnn,{
 
 }).success( function(response) {
   console.log('OK');
-  console.log($scope.username);
-
-  // $state.go('home');
+  // console.log($scope.username);
+  alert('เพิ่มข้อมูลของ User' +  $scope.username + 'สำเร็จ' );
+    $("#div-table").show("show");
+    $("#div-editAdd").hide("show");
 });
 
 }
