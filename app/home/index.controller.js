@@ -41,7 +41,7 @@ $("#div-editAdd").hide("show");
 
 $scope.addData = function(){
 
-var urlNewsCnn = "http://localhost:3000/postUsers";
+var urlNewsCnn = "http://192.168.2.163:3000/postUsers";
 $http.post(urlNewsCnn,{
     'username':$scope.username, 'password':$scope.password,
     'firstname':$scope.firstname, 'lastname':$scope.lastname,
@@ -115,7 +115,7 @@ $http.post(urlUpdate,{
 
 
 
-var urlShowJson = "http://localhost:3000/all/users";
+var urlShowJson = "http://192.168.2.163:3000/all/users";
 $http.get(urlShowJson).success( function(data) {
    $scope.ShowUsersIonic =  data;
    // console.log("Review get  Opject: ", response, status);

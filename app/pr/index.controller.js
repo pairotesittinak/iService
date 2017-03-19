@@ -27,6 +27,62 @@ Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
 
 exports.create = function(req, res) {
+
+
+
+var contentPush = req.body.title;
+/////////Send Push//////////////
+
+var sendNotification = function(data) {
+  var headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Authorization": "Basic MzU3Yzc4MzYtMmU3YS00MWZkLWFkYTMtM2M5MTAyOTMwYWRh"
+  };
+
+// var headers = req.body.title;
+/////////Send Push//////////////
+  var options = {
+    host: "onesignal.com",
+    port: 443,
+    path: "/api/v1/notifications",
+    method: "POST",
+    headers: headers
+  };
+  
+  var https = require('https');
+  var req = https.request(options, function(res) {  
+    res.on('data', function(data) {
+      console.log("Response:");
+      console.log(JSON.parse(data));
+    });
+  });
+  
+  req.on('error', function(e) {
+    console.log("ERROR:");
+    console.log(e);
+  });
+  
+  req.write(JSON.stringify(data));
+  req.end();
+};
+
+var message = { 
+  app_id: "d0aa63da-446a-48bd-b039-2c5899d2da4a",
+  contents: {"en": contentPush},
+  included_segments: ["All"]
+};
+
+sendNotification(message);
+
+
+
+
+
+
+
+
+
+
 var part = req.files.filefield;
 
 var item = {
@@ -74,6 +130,9 @@ data.save(function (err) {
                 writeStream.end();
  
 };
+
+
+
 exports.read = function(req, res) {
  
   gfs.files.find({ filename: req.params.filename }).toArray(function (err, files) {
@@ -118,4 +177,7 @@ exports.read = function(req, res) {
     });
 
     };
+
+
+
 

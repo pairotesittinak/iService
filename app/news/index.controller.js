@@ -20,7 +20,7 @@
         //     });
         // }
 
-var urlShowJson = "http://localhost:3000/showJson";
+var urlShowJson = "http://192.168.2.163:3000/showJson";
 $http.get(urlShowJson).success( function(data) {
    $scope.ALL =  data;
    // console.log("Review get  Opject: ", response, status);
