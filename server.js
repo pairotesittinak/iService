@@ -4,9 +4,6 @@ var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var busboyBodyParser = require('busboy-body-parser');
-// var schedule = require('node-schedule');
-// var hbs = require('express-handlebars');
-// var busboyBodyParser = require('busboy-body-parser');
 var expressJwt = require('express-jwt');
 var config = require('config.json');
 var mongoose = require('mongoose'),
@@ -15,20 +12,10 @@ var mongoose = require('mongoose'),
 
 
 app.use(express.static(__dirname + "/home"));
-// app.use(bodyParser.urlencoded({
-// 		extended: true
-// 	}));
-	// app.use(bodyParser.json());
-	// // app.use(validator());
-	// app.use(busboyBodyParser());
-// busboyBodyParser = require('busboy-body-parser'),
 app.use(busboyBodyParser());
 
 	app.set('view engine', 'ejs');
 	app.set('views', __dirname + '/views');
-	// app.set('views', __dirname + '/views');
-	// app.set('view engine', 'hbs');
-
 	
 	app.use(function(req, res, next) {
 	  res.header("Access-Control-Allow-Origin", "*");
@@ -36,8 +23,6 @@ app.use(busboyBodyParser());
 	  next();
 	});
 
-// app.set('view engine', 'ejs');
-// app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
@@ -55,8 +40,6 @@ app.use('/api/users', require('./controllers/api/users.controller'));
 
 require('./app/pr/pr.route')(app);
 require('./app/postUsers/postUsers.route')(app);
-// require('./app/home/home.route')(app);
-
 // make '/app' default route
 app.get('/', function (req, res) {
     return res.redirect('/app');
@@ -64,6 +47,6 @@ app.get('/', function (req, res) {
 
 
 // start server
-var server = app.listen(3000, '0.0.0.0', function () {
+var server = app.listen(3000, function () {
     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
 });

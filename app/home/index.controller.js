@@ -16,18 +16,6 @@
 
         initController();
 
-
-        // $http.get('/all/users')
-        // .success(function(data) {
-        //     $scope.ShowUsersIonic = data;
-        //     console.log($scope.ShowUsersIonic[0]);
-        // })
-        // .error(function(data) {
-        //     console.log('Error: ' + data);
-        // });
-
-// $scope.editData = {{ name : $scope.ShowUsersIonic.firstname,lastname: $scope.ShowUsersIonic.lastname}};
-
 $scope.ButtonAdd = function(){
 $("#div-table").hide("show");
 $("#div-editAdd").show("show");
@@ -37,11 +25,29 @@ $("#div-table").show("show");
 $("#div-editAdd").hide("show");
 }
 
+$scope.calcelGetUser = function(){
+        $("#div-getUserBox").hide("show");
+$("#div-table").show("show");
+}
+
+
+/////////////BUTTON Search/////////////////////
+$scope.GetDataUser = {};
+$scope.getUser = function(){
+//     $("#div-table").hide("show");
+// $("#div-getUserBox").show("show");
+var urls = "http://localhost:3000/g/" + $scope.SearchGet.username;
+$http.get(urls).then( function(response) {
+  $scope.GetDataUser = response.data;
+  console.log($scope.GetDataUser);
+  console.log($scope.GetDataUser.username+$scope.GetDataUser.lastname+$scope.GetDataUser.faculty)
+});
+}
 
 
 $scope.addData = function(){
 
-var urlNewsCnn = "http://192.168.2.163:3000/postUsers";
+var urlNewsCnn = "http://localhost:3000/postUsers";
 $http.post(urlNewsCnn,{
     'username':$scope.username, 'password':$scope.password,
     'firstname':$scope.firstname, 'lastname':$scope.lastname,
@@ -57,6 +63,50 @@ $http.post(urlNewsCnn,{
 });
 
 }
+
+////////////////////////////Get Users////////////////
+// ButtonUpdateGetUser(GetDataUser)
+$scope.ButtonUpdateGetUser = function(GetDataUser){
+//     $scope.IndexData = $scope.ShowUsersIonic.indexOf(test);
+//     $scope.IndexData = $scope.GetDataUser.indexOf(GetDataUser);
+// console.log("Index "+ $scope.IndexData);
+console.log(GetDataUserGet.username);
+ console.log(GetDataUserGet);
+// $scope.buttonUpdateUserGet = [];
+$scope.buttonUpdateUserGet.username = GetDataUser.username;
+$scope.buttonUpdateUserGet.firstname = GetDataUser.firstname;
+$scope.buttonUpdateUserGet.lastname = GetDataUser.lastname;
+console.log($scope.buttonUpdateUserGet.firstname);
+$scope.buttonUpdateUserGet.faculty = GetDataUser.faculty;
+$scope.buttonUpdateUserGet.year = GetDataUser.year;
+$scope.buttonUpdateUserGet.userType = GetDataUser.userType;
+$("#div-table").hide("show");
+$("#div-editbox").show("show");
+}
+
+
+$scope.saveData = function(){
+
+var urlUpdate = "http://localhost:3000/g/update/" + $scope.buttonUpdateUserGet.username;
+$http.post(urlUpdate,{
+   
+    'firstname':$scope.buttonUpdateUserGet.firstname, 'lastname':$scope.buttonUpdateUserGet.lastname,
+    'faculty':$scope.buttonUpdateUserGet.faculty, 'year':$scope.buttonUpdateUserGet.year,
+    'userType':$scope.buttonUpdateUserGet.userType
+
+}).success( function(response) {
+
+    alert("Success");
+    console.log('OK');
+    $("#div-table").show("show");
+    $("#div-editbox").hide("show");
+  // $state.go('home');
+});
+    alert("Success");
+    console.log('OK');
+    $("#div-table").show("show");
+    $("#div-editbox").hide("show");
+};
 
 
 
@@ -112,14 +162,9 @@ $http.post(urlUpdate,{
 // $("#div-editbox").hide("show");
 
 
-
-
-
-var urlShowJson = "http://192.168.2.163:3000/all/users";
+var urlShowJson = "http://localhost:3000/all/users";
 $http.get(urlShowJson).success( function(data) {
    $scope.ShowUsersIonic =  data;
-   // console.log("Review get  Opject: ", response, status);
-  // console.log($scope.ShowUsersIonic);
 });
 
 
