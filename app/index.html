@@ -38,6 +38,28 @@
     <script src="app.js"></script>
     <script src="app-services/user.service.js"></script>
     <script src="app-services/flash.service.js"></script>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<!-- <script>
+  var socket = io.connect('http://localhost');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script> -->
+<!-- <script>
+   var socket = io.connect( "http://localhost:3000");
+</script> -->
+<script>  
+    var socket = io.connect( "http://localhost:3000");
+    socket.on('stats', function(data) {
+        console.log('Connected clients:', data.numClients);
+    });
+</script>  
+
+
+
  <!--   <script src="pr/index.controller.js"></script>-->
     <script src="news/index.controller.js"></script>
     <script src="home/index.controller.js"></script>

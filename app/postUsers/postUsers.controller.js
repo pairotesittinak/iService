@@ -123,16 +123,15 @@ exports.read = function(req, res) {
 
  exports.getUser = function (req, res) {
     ionicUsers
-    // .find()
     .findOne({
             username: req.param('username')
         })
-    // .populate('File')
-    // .sort({date: -1})
     .exec(function (err, users) {
-      if (err) return handleError(err);
-      console.log('The creator is %s', users);
+      if (err) {return handleError(err);}
+      else{
+              console.log('The creator is %s', users);
       res.json(users);
+    };
       
     });
 

@@ -1,5 +1,6 @@
 <h1>จัดการ User</h1>
-<div class="form-container" ng-controller="Home.IndexController">
+<div ng-app="myApp" ng-controller="Home.IndexController">
+<div class="form-container">
 <div id="div-editAdd" style="display: none;">
 
                 <label class="item item-input">
@@ -72,15 +73,14 @@
 
 
 <!-- BUTTON SEARCH -->
-<div >
-<label>Search: <input ng-model="SearchGet.username"></label>
+<div>
+<label>Search: <input ng-model="Search.username"></label>
 <button type="submit" ng-click="getUser()">ค้นหา</button>
 <!-- SHOW USER Search-->
 <!-- <div id="div-getUserBox" style="display: none;"> -->
-<table class="table table-striped table-hover" ng-controller="Home.IndexController">
+<table class="table table-striped table-hover">
       <thead>
       <tr>
-      <!-- <th>Number</th> -->
     <th>ชื่อผู้ใช้งาน</th>
     <th>คณะ</th>
     <th>ชั้นปี</th>
@@ -89,41 +89,27 @@
       </tr>
   </thead>
   <tbody>
-    <tr  ng-repeat="User in GetDataUser">
     <tr>
-    <!-- <td> {{$index +1}}</td> -->
-<!--       <td>{{GetDataUser.firstname}} {{GetDataUser.lastname}}</td>
+      <td>{{GetDataUser.firstname}} {{GetDataUser.lastname}}</td>
       <td>{{GetDataUser.faculty}}</td>
       <td>{{GetDataUser.year}}</td>
-      <td>{{GetDataUser.userType}}</td> -->
-      <td>{{User.firstname}} {{User.lastname}}</td>
-      <td>{{User.faculty}}</td>
-      <td>{{User.year}}</td>
-      <td>{{User.userType}}</td>
-      <td><button type="button" class="btn btn-danger" ng-click="ButtonUpdateGetUser()"> แก้ไข </button></td>
+      <td>{{GetDataUser.userType}}</td>
+      <td><button id="buttonSearchUpdate" type="button" class="btn btn-danger" ng-click="ButtonUpdateGetUser()" style="display: none;"> แก้ไข </button></td>
     </tr>
       </tbody>
     </table> 
-<!--     <div ng-controller="Home.IndexController">
-{{GetDataUse.firstname}} {{GetDataUse.lastname}}
-   {{GetDataUse.faculty}}
-  {{GetDataUse.year}}
-{{GetDataUse.userType}}
-
-    </div> -->
     <label>
-    <button ng-click="calcelGetUser()">กลับหน้า Home</button>
+    <button ng-click="calcelGetUser()" style="display: none;" id="backHome">กลับหน้า Home</button>
     </label>
 </div>
 
-<div id="div-editSearch" style="display: none;">
-firstname: <input type="text" ng-model="buttonUpdateUserGet.firstname" name="firstname"> <br />
-lastname: <input type="text" ng-model="buttonUpdateUserGet.lastname" name="lastname"> <br />
-faculty: <input type="text" ng-model="buttonUpdateUserGet.faculty" name="faculty"> <br />
-year: <input type="text" ng-model="buttonUpdateUserGet.year" name="year"> <br />
-userType: <input type="text" ng-model="buttonUpdateUserGet.userType" name="userType"> <br />
-<button ng-click="saveData()" class="btn btn-success">saveDaata</button>
-<button ng-click="cancelData()" class="btn btn-danger">cancelDaata</button>
+<div id="div-editSearch" style="display: none;" >
+firstname: <input type="text" ng-model="GetDataUser.firstname" name="firstname"> <br />
+lastname: <input type="text" ng-model="GetDataUser.lastname" name="lastname"> <br />
+faculty: <input type="text" ng-model="GetDataUser.faculty" name="faculty"> <br />
+year: <input type="text" ng-model="GetDataUser.year" name="year"> <br />
+userType: <input type="text" ng-model="GetDataUser.userType" name="userType"> <br />
+<button ng-click="saveSearch()" class="btn btn-success">saveDaata</button>
 </div>
 
 <!-- Show All Users -->
@@ -139,10 +125,6 @@ userType: <input type="text" ng-model="buttonUpdateUserGet.userType" name="userT
     <th>ชั้นปี</th>
     <th>ประเภทผู้ใช้</th>
     <th>แก้ไข</th>
-    <!-- <th>สถานะ</th> -->
-<!--     <th>บทบาทหน้าที่</th>
-    <th>คณะ</th>
-    <th>ชั้นปี</th> -->
       </tr>
   </thead>
   <tbody ng-repeat="test in ShowUsersIonic | limitTo : 10 ">
@@ -165,8 +147,6 @@ userType: <input type="text" ng-model="buttonUpdateUserGet.userType" name="userT
     </table> 
     </div>
 <div id="div-editbox" style="display: none;">
-
-
 firstname: <input type="text" ng-model="buttonUpdateUser.firstname" name="firstname"> <br />
 lastname: <input type="text" ng-model="buttonUpdateUser.lastname" name="lastname"> <br />
 faculty: <input type="text" ng-model="buttonUpdateUser.faculty" name="faculty"> <br />
@@ -175,6 +155,5 @@ userType: <input type="text" ng-model="buttonUpdateUser.userType" name="userType
 <button ng-click="saveData()" class="btn btn-success">saveDaata</button>
 <button ng-click="cancelData()" class="btn btn-danger">cancelDaata</button>
 </div>
-
-
+</div>
 </div>

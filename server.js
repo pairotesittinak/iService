@@ -4,6 +4,8 @@ var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var busboyBodyParser = require('busboy-body-parser');
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var expressJwt = require('express-jwt');
 var config = require('config.json');
 var mongoose = require('mongoose'),
@@ -30,6 +32,40 @@ app.use(session({ secret: config.secret, resave: false, saveUninitialized: true 
 // use JWT auth to secure the api
 app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
+// Check Connect Users
+// io.on('connection', function (socket) {
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+// io.on('connection', function(socket){
+//   console.log('a user connected');
+//   socket.on('disconnect', function(){
+//     console.log('user disconnected');
+//   });
+// });
+
+
+
+var numClients = 0;
+
+io.on('connection', function(socket) {  
+    numClients++;
+    io.emit('stats', { numClients: numClients });
+
+    console.log('Connected clients:', numClients);
+
+    socket.on('disconnect', function() {
+        numClients--;
+        io.emit('stats', { numClients: numClients });
+
+        console.log('Connected clients:', numClients);
+    });
+});
+
+
+
 // routes
 app.use('/login', require('./controllers/login.controller'));
 app.use('/register', require('./controllers/register.controller'));
@@ -44,9 +80,12 @@ require('./app/postUsers/postUsers.route')(app);
 app.get('/', function (req, res) {
     return res.redirect('/app');
 });
+server.listen(3000, function () {
+    console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
+});
 
 
 // start server
-var server = app.listen(3000, function () {
-    console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
-});
+// var server = app.listen(3000, function () {
+//     console.log('Server listening at http://' + server.address().address + ':' + server.address().port);
+// });

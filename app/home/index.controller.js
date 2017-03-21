@@ -26,22 +26,26 @@ $("#div-editAdd").hide("show");
 }
 
 $scope.calcelGetUser = function(){
-        $("#div-getUserBox").hide("show");
+
+$("#div-editSearch").hide("show");
+$("#div-getUserBox").hide("show");
 $("#div-table").show("show");
 }
 
 
 /////////////BUTTON Search/////////////////////
-$scope.GetDataUser = {};
+$scope.GetDataUser = [];
 $scope.getUser = function(){
-//     $("#div-table").hide("show");
-// $("#div-getUserBox").show("show");
-var urls = "http://localhost:3000/g/" + $scope.SearchGet.username;
+var urls = "http://localhost:3000/g/" + $scope.Search.username;
 $http.get(urls).then( function(response) {
-  $scope.GetDataUser = response.data;
-  console.log($scope.GetDataUser);
-  console.log($scope.GetDataUser.username+$scope.GetDataUser.lastname+$scope.GetDataUser.faculty)
-});
+       // alert("ไม่พบ User : " + $scope.Search.username);
+          $scope.GetDataUser = response.data;
+          $("#buttonSearchUpdate").show("show");
+
+}).catch(function(data, status) {
+    console.error('Gists error', response.status, response.data);
+    return alert("ไม่พบ User : " + $scope.Search.username);
+  });
 }
 
 
@@ -60,58 +64,40 @@ $http.post(urlNewsCnn,{
   alert('เพิ่มข้อมูลของ User' +  $scope.username + 'สำเร็จ' );
     $("#div-table").show("show");
     $("#div-editAdd").hide("show");
+
 });
 
 }
 
 ////////////////////////////Get Users////////////////
 // ButtonUpdateGetUser(GetDataUser)
-$scope.ButtonUpdateGetUser = function(GetDataUser){
-//     $scope.IndexData = $scope.ShowUsersIonic.indexOf(test);
-//     $scope.IndexData = $scope.GetDataUser.indexOf(GetDataUser);
-// console.log("Index "+ $scope.IndexData);
-console.log(GetDataUserGet.username);
- console.log(GetDataUserGet);
-// $scope.buttonUpdateUserGet = [];
-$scope.buttonUpdateUserGet.username = GetDataUser.username;
-$scope.buttonUpdateUserGet.firstname = GetDataUser.firstname;
-$scope.buttonUpdateUserGet.lastname = GetDataUser.lastname;
-console.log($scope.buttonUpdateUserGet.firstname);
-$scope.buttonUpdateUserGet.faculty = GetDataUser.faculty;
-$scope.buttonUpdateUserGet.year = GetDataUser.year;
-$scope.buttonUpdateUserGet.userType = GetDataUser.userType;
+$scope.ButtonUpdateGetUser = function(){
 $("#div-table").hide("show");
-$("#div-editbox").show("show");
+$("#div-editSearch").show("show");
+$("#backHome").show("show");
 }
 
 
-$scope.saveData = function(){
+$scope.saveSearch = function(){
 
-var urlUpdate = "http://localhost:3000/g/update/" + $scope.buttonUpdateUserGet.username;
+var urlUpdate = "http://localhost:3000/g/update/" + $scope.GetDataUser.username;
 $http.post(urlUpdate,{
    
-    'firstname':$scope.buttonUpdateUserGet.firstname, 'lastname':$scope.buttonUpdateUserGet.lastname,
-    'faculty':$scope.buttonUpdateUserGet.faculty, 'year':$scope.buttonUpdateUserGet.year,
-    'userType':$scope.buttonUpdateUserGet.userType
+    'firstname':$scope.GetDataUser.firstname, 'lastname':$scope.GetDataUser.lastname,
+    'faculty':$scope.GetDataUser.faculty, 'year':$scope.GetDataUser.year,
+    'userType':$scope.GetDataUser.userType
 
 }).success( function(response) {
 
-    alert("Success");
-    console.log('OK');
-    $("#div-table").show("show");
-    $("#div-editbox").hide("show");
-  // $state.go('home');
 });
-    alert("Success");
-    console.log('OK');
-    $("#div-table").show("show");
-    $("#div-editbox").hide("show");
+alert("แก้ไข้ข้อมูลของ User "+ $scope.GetDataUser.username + "สำเร็จ");
+// $state.go('home');
 };
 
 
 
 
-
+//////////////// Update USers /////////////
 $scope.ButtonUpdateUser = function(test){
 // $scope.IndexData = {};
 $scope.IndexData = $scope.ShowUsersIonic.indexOf(test);

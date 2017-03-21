@@ -24,7 +24,7 @@ var urlShowJson = "http://localhost:3000/showJson";
 $http.get(urlShowJson).success( function(data) {
    $scope.ALL =  data;
    // console.log("Review get  Opject: ", response, status);
-  console.log(data);
+  // console.log(data);
 });
 
 
