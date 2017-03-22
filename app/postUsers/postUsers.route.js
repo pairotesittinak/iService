@@ -16,7 +16,8 @@ app.route('/all/users')
 	.get(user.getUserAll);
 app.route('/g/:username')
 	.get(user.getUser);
-
+app.route('/g/delete/:username')
+	.delete(user.deleteUsers);
 app.route('/g/update/:username')
 	.post(user.updateUsers);
 };

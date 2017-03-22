@@ -165,3 +165,16 @@ userType : userT , year : yy }}, function (err, user) {
   console.log('OK');
 });
     }
+
+    exports.deleteUsers = function(req, res){
+      ionicUsers.remove({ username:req.param('username')}, function (err) {
+      if (err) {
+        return handleError(err)
+      }
+      else {
+        console.log('OK');
+      }
+      // removed!
+      });
+      // next();
+    }

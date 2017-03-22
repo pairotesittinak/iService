@@ -2,7 +2,6 @@
 <div ng-app="myApp" ng-controller="Home.IndexController">
 <div class="form-container">
 <div id="div-editAdd" style="display: none;">
-
                 <label class="item item-input">
                     <span class="input-label">Username :</span>
                     <input type="text" placeholder="ใส่ Username เพื่อใช้ Login" ng-model="username" name="username">
@@ -62,8 +61,6 @@
           </label>
 
 <!-- <button ng-click="addUsers()" class="button button-balanced button-block ">Sign up</button> -->
-
-
 <div>
 <button ng-click="addData()" class="btn btn-success">saveDaata</button>
 <button ng-click="cancelAdd()" class="btn btn-danger">cancel</button>
@@ -86,6 +83,7 @@
     <th>ชั้นปี</th>
     <th>ประเภทผู้ใช้</th>
     <th>แก้ไข</th>
+    <th>ลบ</th>
       </tr>
   </thead>
   <tbody>
@@ -94,7 +92,8 @@
       <td>{{GetDataUser.faculty}}</td>
       <td>{{GetDataUser.year}}</td>
       <td>{{GetDataUser.userType}}</td>
-      <td><button id="buttonSearchUpdate" type="button" class="btn btn-danger" ng-click="ButtonUpdateGetUser()" style="display: none;"> แก้ไข </button></td>
+      <td><button class="buttonSearchUpdate btn btn-danger" type="button"  ng-click="ButtonUpdateGetUser()" style="display: none;"> แก้ไข </button></td>
+      <td><button class="buttonSearchUpdate btn btn-danger" type="button"  ng-click="ButtonDeleteSearch()" style="display: none;"> ลบ </button></td>
     </tr>
       </tbody>
     </table> 
@@ -102,7 +101,7 @@
     <button ng-click="calcelGetUser()" style="display: none;" id="backHome">กลับหน้า Home</button>
     </label>
 </div>
-
+<!-- Search Update Users -->
 <div id="div-editSearch" style="display: none;" >
 firstname: <input type="text" ng-model="GetDataUser.firstname" name="firstname"> <br />
 lastname: <input type="text" ng-model="GetDataUser.lastname" name="lastname"> <br />
@@ -125,6 +124,7 @@ userType: <input type="text" ng-model="GetDataUser.userType" name="userType"> <b
     <th>ชั้นปี</th>
     <th>ประเภทผู้ใช้</th>
     <th>แก้ไข</th>
+    <th>ลบ</th>
       </tr>
   </thead>
   <tbody ng-repeat="test in ShowUsersIonic | limitTo : 10 ">
@@ -135,6 +135,7 @@ userType: <input type="text" ng-model="GetDataUser.userType" name="userType"> <b
       <td>{{test.year}}</td>
       <td>{{test.userType}}</td>
       <td><button type="button" class="btn btn-danger" ng-click="ButtonUpdateUser(test)"> แก้ไข </button></td>
+      <td><button type="button" class="btn btn-danger" ng-click="ButtonDeleteUser(test)"> ลบ </button></td>
     </tr>
       </tbody>
       <tfoot  >
@@ -146,6 +147,7 @@ userType: <input type="text" ng-model="GetDataUser.userType" name="userType"> <b
       </tfoot>
     </table> 
     </div>
+<!-- Update Users -->
 <div id="div-editbox" style="display: none;">
 firstname: <input type="text" ng-model="buttonUpdateUser.firstname" name="firstname"> <br />
 lastname: <input type="text" ng-model="buttonUpdateUser.lastname" name="lastname"> <br />

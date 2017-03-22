@@ -16,6 +16,9 @@
 
         initController();
 
+
+// $scope.reloadPage = function(){$window.location.reload();}
+
 $scope.ButtonAdd = function(){
 $("#div-table").hide("show");
 $("#div-editAdd").show("show");
@@ -26,7 +29,6 @@ $("#div-editAdd").hide("show");
 }
 
 $scope.calcelGetUser = function(){
-
 $("#div-editSearch").hide("show");
 $("#div-getUserBox").hide("show");
 $("#div-table").show("show");
@@ -40,17 +42,31 @@ var urls = "http://localhost:3000/g/" + $scope.Search.username;
 $http.get(urls).then( function(response) {
        // alert("ไม่พบ User : " + $scope.Search.username);
           $scope.GetDataUser = response.data;
-          $("#buttonSearchUpdate").show("show");
+          $(".buttonSearchUpdate").show("show");
 
 }).catch(function(data, status) {
     console.error('Gists error', response.status, response.data);
     return alert("ไม่พบ User : " + $scope.Search.username);
   });
 }
-
-
+/////////////buttonDeleteSearch///////////////////
+$scope.ButtonDeleteSearch= function(){
+var buttonConfirmSearchDelete = confirm("Press a button!");
+    if (buttonConfirmSearchDelete == true) {
+        alert('ลบ User : '+ $scope.GetDataUser.username +'เสร็จสำบูรณ์');
+        $("#backHome").show("show");
+        var urlDelete = "http://localhost:3000/g/delete/" + $scope.GetDataUser.username;
+        $window.location.reload();
+        $http.delete(urlDelete, {username:$scope.GetDataUser.username})
+            .success(function() {
+    console.log('success is called');
+  });
+    } else {
+        console.log('Cancel Delete');
+    }
+}
+////////////////////////Button Add Users///////////////////////
 $scope.addData = function(){
-
 var urlNewsCnn = "http://localhost:3000/postUsers";
 $http.post(urlNewsCnn,{
     'username':$scope.username, 'password':$scope.password,
@@ -60,6 +76,7 @@ $http.post(urlNewsCnn,{
 
 }).success( function(response) {
   console.log('OK');
+  $window.location.reload();
   // console.log($scope.username);
   alert('เพิ่มข้อมูลของ User' +  $scope.username + 'สำเร็จ' );
     $("#div-table").show("show");
@@ -77,7 +94,7 @@ $("#div-editSearch").show("show");
 $("#backHome").show("show");
 }
 
-
+////////////////////////////Button Save Update Search//////////////////
 $scope.saveSearch = function(){
 
 var urlUpdate = "http://localhost:3000/g/update/" + $scope.GetDataUser.username;
@@ -91,6 +108,7 @@ $http.post(urlUpdate,{
 
 });
 alert("แก้ไข้ข้อมูลของ User "+ $scope.GetDataUser.username + "สำเร็จ");
+$window.location.reload();
 // $state.go('home');
 };
 
@@ -115,6 +133,30 @@ $scope.buttonUpdateUser.userType = test.userType;
 $("#div-table").hide("show");
 $("#div-editbox").show("show");
 };
+
+
+/////////////////BUTTON DELETE /////////////////////////////
+$scope.buttonDeleteUser = [];
+$scope.ButtonDeleteUser = function(test){
+$scope.IndexDataDelete = $scope.ShowUsersIonic.indexOf(test);
+console.log($scope.IndexDataDelete);
+console.log(test.username);
+$scope.buttonDeleteUser.username = test.username;
+console.log($scope.buttonDeleteUser.username)
+var buttonConfirmDelete = confirm("Press a button!");
+    if (buttonConfirmDelete == true) {
+        alert('ลบ User : '+ $scope.buttonDeleteUser.username +'เสร็จสำบูรณ์');
+        var urlDelete = "http://localhost:3000/g/delete/" + $scope.buttonDeleteUser.username;
+        $window.location.reload();
+        $http.delete(urlDelete, {username:$scope.buttonDeleteUser.username})
+            .success(function() {
+    console.log('success is called');
+  });
+    } else {
+        console.log('Cancel Delete');
+    }
+}
+
 
 $scope.cancelData = function(){
 
