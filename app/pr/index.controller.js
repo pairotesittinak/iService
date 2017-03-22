@@ -165,19 +165,58 @@ exports.read = function(req, res) {
  
 };
 
-    exports.showJson = function (req, res) {
+    exports.showNews = function (req, res) {
     newss
     .find()
     .populate('File')
     .sort({date: -1})
-    .exec(function (err, users) {
+    .exec(function (err, news) {
       if (err) return handleError(err);
-      console.log('The creator is %s', users);
-      res.json(users);
+      // console.log('The creator is %s', users);\
+      console.log('User Get News')
+      res.json(news);
     });
+};
 
-    };
+  exports.showNewsLib = function (req, res) {
+    newss
+    .find({group_id:'lib'})
+    .populate('File')
+    .sort({date: -1})
+    .exec(function (err, news) {
+      if (err) return handleError(err);
+      // console.log('The creator is %s', users);\
+      console.log('User Get News')
+      res.json(news);
+    });
+};
+  exports.showNewsIt = function (req, res) {
+    newss
+    .find({group_id:'it'})
+    .populate('File')
+    .sort({date: -1})
+    .exec(function (err, news) {
+      if (err) return handleError(err);
+      // console.log('The creator is %s', users);\
+      console.log('User Get News')
+      res.json(news);
+    });
+};
 
+ exports.getNews = function (req, res) {
+    newss
+    .findOne({
+            title: req.param('title')
+        })
+    .exec(function (err, news) {
+      if (err) {return handleError(err);}
+      else{
+      // console.log('The creator is %s', title);
+      console.log('User Serch News')
+      res.json(news);
+    };  
+  });
+};
 
 
 

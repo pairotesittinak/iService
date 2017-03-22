@@ -131,11 +131,9 @@ exports.read = function(req, res) {
       else{
               console.log('The creator is %s', users);
       res.json(users);
-    };
-      
-    });
-
-    };
+    };  
+  });
+};
 
 
     exports.getUserAll = function (req, res) {
@@ -175,6 +173,6 @@ userType : userT , year : yy }}, function (err, user) {
         console.log('OK');
       }
       // removed!
-      });
+  });
       // next();
-    }
+}
